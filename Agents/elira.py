@@ -22,6 +22,18 @@ from typing import Optional, Dict, List
 
 from models import Market, Position, SimResult, VexVerdict
 
+# Pipeline status tracker for dashboard
+try:
+    from utils.pipeline_status import update_status, log_message
+except ImportError:
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    try:
+        from utils.pipeline_status import update_status, log_message
+    except Exception:
+        def update_status(*args, **kwargs): pass
+        def log_message(*args, **kwargs): pass
+
 log = logging.getLogger("elira")
 
 DATA_DIR = Path(__file__).parent.parent / "data"
@@ -172,8 +184,11 @@ def go_no_go(
         "reason": str
     }
     """
+    update_status('elira-decide', 'Evaluating 6-gate validation checklist')
+    log_message(f'🔮 Elira: Making go/no-go decision for {market.question[:40]}...')
+    
     log.info("=" * 60)
-    log.info("[Step 7] ORB GO/NO-GO DECISION")
+    log.info("[Step 7] ELIRA GO/NO-GO DECISION")
     log.info("=" * 60)
     
     validation = _validate_gates(market, sim_result, vex_verdict, calendar_verdict)

@@ -23,6 +23,17 @@ from typing import Optional, Dict, List
 
 from models import Market, Position
 
+# Pipeline status tracker for dashboard
+try:
+    from utils.pipeline_status import update_status, log_message
+except ImportError:
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    try:
+        from utils.pipeline_status import update_status, log_message
+    except Exception:
+        def update_status(*args, **kwargs): pass
+        def log_message(*args, **kwargs): pass
+
 # Long-term Pinecone memory (non-fatal if unavailable)
 try:
     from pinecone_memory import memory as _mem
@@ -392,6 +403,11 @@ def open_position(
     Returns:
         Position dataclass with position_id
     """
+    from Agents.elira import TIER_SIZES
+    size = TIER_SIZES.get(tier, 25)
+    update_status('steven-execute', f'Opening position: ${size} on {direction}')
+    log_message(f'💰 Steven: Executing {TRADING_MODE} trade (${size} {direction})')
+    
     log.info("=" * 60)
     log.info(f"[Step 8] STEVEN OPENING POSITION")
     log.info(f"  Mode: {TRADING_MODE.upper()}")

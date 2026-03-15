@@ -24,6 +24,18 @@ import anthropic
 from mirofish_client import MiroFishClient, MiroFishError, _extract_sim_result
 from models import Market, Position, SimResult
 
+# Pipeline status tracker for dashboard
+try:
+    from utils.pipeline_status import update_status, log_message
+except ImportError:
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    try:
+        from utils.pipeline_status import update_status, log_message
+    except Exception:
+        def update_status(*args, **kwargs): pass
+        def log_message(*args, **kwargs): pass
+
 log = logging.getLogger("david")
 
 CALIBRATION_LOG = Path(__file__).parent.parent / "data" / "calibration_log.csv"
@@ -182,6 +194,9 @@ def run_simulation(
     Raises:
         MiroFishError: If runs fail, variance too high, or backend unreachable
     """
+    update_status('david-simulate', f'Running MiroFish swarm simulation ({min_runs} run{"s" if min_runs > 1 else ""})')
+    log_message(f'🧠 David: Starting MiroFish simulation for {market.question[:50]}...')
+    
     client = MiroFishClient(base_url=mirofish_url)
 
     if not client.ping():

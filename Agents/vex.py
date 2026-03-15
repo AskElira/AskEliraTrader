@@ -26,6 +26,18 @@ import anthropic
 from models import Market, SimResult, VexVerdict
 from Agents.david import get_category_accuracy, _classify_domain
 
+# Pipeline status tracker for dashboard
+try:
+    from utils.pipeline_status import update_status, log_message
+except ImportError:
+    import sys
+    sys.path.insert(0, str(Path(__file__).parent.parent))
+    try:
+        from utils.pipeline_status import update_status, log_message
+    except Exception:
+        def update_status(*args, **kwargs): pass
+        def log_message(*args, **kwargs): pass
+
 # Pinecone memory (optional)
 try:
     from pinecone_memory import memory as _mem
@@ -496,6 +508,9 @@ def audit_simulation(
     Returns:
         VexVerdict with verdict (PASS/PASS-WITH-WARNINGS/FAIL), findings, and confidence
     """
+    update_status('vex-audit', 'Running 8-point adversarial quality audit')
+    log_message(f'🛡️ Vex: Auditing simulation quality for {market.question[:40]}...')
+    
     log.info("=" * 60)
     log.info(f"VEX AUDIT STARTING: {market.question[:60]}")
     log.info("=" * 60)
