@@ -43,7 +43,7 @@ npm run dev
 
 | Agent | Role | Has Web Search | Touches Capital |
 |-------|------|:--------------:|:---------------:|
-| **Orb** | Operations Manager — coordinates all agents, makes go/no-go calls | No | No |
+| **Elira** | Operations Manager — coordinates all agents, makes go/no-go calls | No | No |
 | **Alba** | Research Analyst — scans markets, seeds MiroFish, flags uncertainty | Yes | No |
 | **David** | Engineer — configures + runs MiroFish pipelines, maintains calibration log | No | No |
 | **Vex** | Adversarial Auditor — tears apart David's setups before any deployment | No | No |
@@ -60,7 +60,7 @@ David (MiroFish config → min. 3 simulation runs → Simulation Report)
     ↓
 Vex (adversarial audit → PASS / PASS-WITH-WARNINGS / FAIL)
     ↓
-Orb (final go/no-go + capital tier assignment)
+Elira (final go/no-go + capital tier assignment)
     ↓
 Steven (execute + monitor + resolution watch)
     ↓
@@ -68,7 +68,7 @@ David (calibration log update after every resolution)
     ↑________________________ feedback loop _______________________↑
 ```
 
-**Hard rule:** No step may be skipped. Orb enforces sequence compliance.
+**Hard rule:** No step may be skipped. Elira enforces sequence compliance.
 
 ---
 
@@ -107,23 +107,23 @@ David (calibration log update after every resolution)
 
 **Exit Rules (Steven enforces):**
 - YES price +20% in our favor before expiry → take partial profit
-- YES price -30% against us → flag to Orb for stop-loss review
-- New information invalidates simulation premise → flag to Orb immediately
+- YES price -30% against us → flag to Elira for stop-loss review
+- New information invalidates simulation premise → flag to Elira immediately
 
 ---
 
 ## 📋 DAILY OPERATIONS SEQUENCE
 
 ### Morning (session open)
-1. **Alba** runs market scan → delivers Top Opportunity + Watchlist to Orb
+1. **Alba** runs market scan → delivers Top Opportunity + Watchlist to Elira
 2. **Alba** flags any major scheduled events (Fed, elections, rulings) within 14 days
-3. **Orb** reviews Alba scan → assigns seed package work to David
+3. **Elira** reviews Alba scan → assigns seed package work to David
 4. **David** configures MiroFish for priority market → runs simulations
 
 ### Midday
 5. **David** delivers Simulation Report → hands to Vex
-6. **Vex** runs full audit checklist → delivers verdict to Orb
-7. **Orb** makes go/no-go call → assigns capital tier → notifies Steven
+6. **Vex** runs full audit checklist → delivers verdict to Elira
+7. **Elira** makes go/no-go call → assigns capital tier → notifies Steven
 
 ### Afternoon / Evening
 8. **Steven** executes approved positions
@@ -189,18 +189,18 @@ SELF-BLOCK IF: variance > 15% OR fewer than 3 runs complete
 
 □ SINGLE-POINT-OF-FAILURE
   Can one tweet / one judge / one announcement override the simulation?
-  Flag as OVERRIDE RISK to Orb
+  Flag as OVERRIDE RISK to Elira
 
 □ LOOK-AHEAD CONTAMINATION
   Any seed material written after partial resolution? = FAIL, reseed required
 
 □ CALIBRATION CHECK
   David's accuracy on this market category ≥ 60%?
-  Below 60% = require manual Orb review before deployment
+  Below 60% = require manual Elira review before deployment
 ```
 
 **Vex Verdicts:** `PASS` · `PASS-WITH-WARNINGS` · `FAIL`
-**Fail → David reworks → resubmits to Vex → never goes directly to Orb**
+**Fail → David reworks → resubmits to Vex → never goes directly to Elira**
 
 ---
 
@@ -225,10 +225,10 @@ David maintains a **Calibration Log** — updated after every market resolution:
 | Block | Enforced By | Override Allowed |
 |-------|-------------|:----------------:|
 | Session FVG v3 — PnL discrepancy unresolved | N/A (legacy trading block) | No |
-| Vex FAIL verdict | Orb blocks Steven | No |
-| Alba HIGH-UNCERTAINTY flag | Orb hard stop | Orb discretion only |
+| Vex FAIL verdict | Elira blocks Steven | No |
+| Alba HIGH-UNCERTAINTY flag | Elira hard stop | Elira discretion only |
 | Run variance > 15% | David self-blocks | No |
-| Missing Vex audit | Orb blocks Steven | No |
+| Missing Vex audit | Elira blocks Steven | No |
 | Look-ahead contaminated seed | Vex FAIL | No — reseed required |
 
 ---
@@ -256,14 +256,14 @@ David maintains a **Calibration Log** — updated after every market resolution:
 
 | Decision | Owner |
 |----------|-------|
-| Which markets to research | Alba → Orb approves |
+| Which markets to research | Alba → Elira approves |
 | MiroFish seed package | Alba |
 | MiroFish simulation config + runs | David |
 | Adversarial audit of simulation | Vex |
-| Final go/no-go on capital deployment | Orb |
+| Final go/no-go on capital deployment | Elira |
 | Position execution and monitoring | Steven |
 | Calibration log | David |
-| Hard block enforcement | Orb |
+| Hard block enforcement | Elira |
 
 ---
 

@@ -22,7 +22,7 @@ from typing import Optional, Dict, List
 
 from models import Market, Position, SimResult, VexVerdict
 
-log = logging.getLogger("orb")
+log = logging.getLogger("elira")
 
 DATA_DIR = Path(__file__).parent.parent / "data"
 ACTIVE_POSITIONS_FILE = DATA_DIR / "active_positions.json"

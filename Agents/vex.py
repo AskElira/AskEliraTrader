@@ -1,6 +1,6 @@
 """
 Vex — Adversarial Auditor
-Step 6: Audit David's simulation setup before Orb approves capital deployment
+Step 6: Audit David's simulation setup before Elira approves capital deployment
 
 COMPLETE IMPLEMENTATION with:
 - 8-point adversarial audit checklist
@@ -365,7 +365,7 @@ def check_single_point_of_failure(
         if single_point_risk:
             finding = f"WARN — Single-point-of-failure detected: {risk_desc} (override prob: {override_prob})"
             log.warning(f"[Vex 6/8] {finding}")
-            return True, finding, True  # WARN, flag override risk to Orb
+            return True, finding, True  # WARN, flag override risk to Elira
         
         finding = "PASS — No single-point-of-failure detected"
         log.info(f"[Vex 6/8] {finding}")
@@ -446,7 +446,7 @@ def check_calibration_accuracy(
     """
     Verify David's historical accuracy on this market category is ≥60%.
     
-    If below 60%, require manual Orb review before deployment.
+    If below 60%, require manual Elira review before deployment.
     
     Returns:
         (pass: bool, finding: str)
@@ -464,10 +464,10 @@ def check_calibration_accuracy(
     if accuracy < CALIBRATION_MIN_ACCURACY:
         finding = (
             f"WARN — Calibration accuracy {accuracy:.0%} below {CALIBRATION_MIN_ACCURACY:.0%} threshold. "
-            f"Require manual Orb review before deployment."
+            f"Require manual Elira review before deployment."
         )
         log.warning(f"[Vex 8/8] {finding}")
-        return True, finding  # WARN, not FAIL (Orb decides)
+        return True, finding  # WARN, not FAIL (Elira decides)
     
     finding = f"PASS — Calibration accuracy {accuracy:.0%} meets {CALIBRATION_MIN_ACCURACY:.0%} threshold"
     log.info(f"[Vex 8/8] {finding}")

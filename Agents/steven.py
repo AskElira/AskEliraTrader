@@ -385,8 +385,8 @@ def open_position(
     
     Args:
         market: Market dataclass from Alba
-        direction: "YES" or "NO" (Orb decision)
-        tier: 1/2/3 (Orb capital tier)
+        direction: "YES" or "NO" (Elira decision)
+        tier: 1/2/3 (Elira capital tier)
         sim_confidence: David's simulation confidence (0.0-1.0)
     
     Returns:
@@ -540,7 +540,7 @@ def monitor_all_positions(current_prices: Dict[str, float]) -> None:
         
         elif action == "FLAG_STOP_LOSS":
             log.warning(f"[Steven] Action: {action} for {position.position_id}")
-            log.warning(f"  [Steven] Flagging to Orb for manual review")
+            log.warning(f"  [Steven] Flagging to Elira for manual review")
         
         else:
             log.debug(f"[Steven] {position.position_id}: HOLD")
