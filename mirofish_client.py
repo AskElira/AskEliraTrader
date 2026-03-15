@@ -220,11 +220,11 @@ class MiroFishClient:
             self._poll_prepare(task_id, simulation_id, label="sim-prepare")
         log.info(f"[B2] Simulation prepared. sim_id={simulation_id}")
 
-        # B3: Start simulation runner (cap at 30 rounds ≈ 10 min per run)
+        # B3: Start simulation runner (TESTING MODE: 5 rounds for speed)
         log.info(f"[B3] Starting simulation runner. sim_id={simulation_id}")
         self._post(
             "/api/simulation/start",
-            json={"simulation_id": simulation_id, "max_rounds": 1},
+            json={"simulation_id": simulation_id, "max_rounds": 5},  # Was 1 (typo), now 5 for faster testing
         )
 
         # B4: Poll run-status until completed
