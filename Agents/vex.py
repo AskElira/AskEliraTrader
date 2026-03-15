@@ -26,6 +26,12 @@ import anthropic
 from models import Market, SimResult, VexVerdict
 from Agents.david import get_category_accuracy, _classify_domain
 
+# Pinecone memory (optional)
+try:
+    from pinecone_memory import memory as _mem
+except Exception:
+    _mem = None
+
 log = logging.getLogger("vex")
 
 MODEL = "claude-sonnet-4-5"
@@ -579,5 +585,32 @@ def audit_simulation(
     if override_risk:
         log.warning("⚠️  OVERRIDE RISK FLAGGED TO ORB")
     log.info("=" * 60)
+    
+    # Store Vex audit result in Pinecone for learning
+    try:
+        if _mem:
+            import re
+            slug = re.sub(r"[^a-z0-9]+", "-", market.question.lower())[:50].strip("-")
+            
+            # Build audit summary
+            audit_summary = f"Vex {verdict} on {market.question[:80]}. "
+            audit_summary += f"Confidence: {confidence}. "
+            if fail_reasons:
+                audit_summary += f"Failed: {', '.join(fail_reasons)}. "
+            if findings:
+                # Extract key findings (FAIL/WARN messages)
+                key_findings = [f for f in findings if 'FAIL' in f or 'WARN' in f]
+                if key_findings:
+                    audit_summary += f"Key issues: {' | '.join(key_findings[:2])}"
+            
+            _mem.store_agent_note(
+                agent="Vex",
+                note=audit_summary,
+                market_slug=slug,
+                note_type="audit-result",
+            )
+            log.debug(f"[Vex] Stored audit result to Pinecone: {verdict}")
+    except Exception as _exc:
+        log.warning(f"[Vex] Pinecone store failed (non-fatal): {_exc}")
     
     return vex_verdict
