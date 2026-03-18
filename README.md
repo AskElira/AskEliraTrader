@@ -1,6 +1,6 @@
 # AskElira Trader - Autonomous Prediction Market Trading
 
-> **Built on the [AskElira Framework](https://github.com/jellyforex/askelira)** - Multi-agent orchestration with swarm intelligence
+> **Built on the [AskElira Framework](https://github.com/AskElira/askelira)** - Multi-agent orchestration with swarm intelligence
 
 Autonomous trading system for Polymarket & Kalshi prediction markets using 5 AI agents + MiroFish swarm intelligence.
 
@@ -16,10 +16,10 @@ Autonomous trading system for Polymarket & Kalshi prediction markets using 5 AI 
 AskElira Trader is the **trading use case** of the AskElira Framework.
 
 **Other AskElira Applications:**
-- [AskElira Marketing](https://github.com/jellyforex/askeliramarketing) - Viral marketing campaigns  
-- [AskElira Framework](https://github.com/jellyforex/askelira) - Build your own automation
+- [AskElira Marketing](https://github.com/AskElira/askeliramarketing) - Viral marketing campaigns  
+- [AskElira Framework](https://github.com/AskElira/askelira) - Build your own automation
 
-**Want to build your own?** Fork the [framework](https://github.com/jellyforex/askelira) and adapt the 5-agent pattern to your domain.
+**Want to build your own?** Fork the [framework](https://github.com/AskElira/askelira) and adapt the 5-agent pattern to your domain.
 
 ---
 
@@ -245,10 +245,10 @@ MIT License - see [LICENSE](LICENSE)
 
 ## 🔗 Links
 
-- **Framework:** [github.com/jellyforex/askelira](https://github.com/jellyforex/askelira)
-- **Marketing:** [github.com/jellyforex/askeliramarketing](https://github.com/jellyforex/askeliramarketing)
+- **Framework:** [github.com/AskElira/askelira](https://github.com/AskElira/askelira)
+- **Marketing:** [github.com/AskElira/askeliramarketing](https://github.com/AskElira/askeliramarketing)
 - **Website:** [askelira.com](https://askelira.com)
 
 ---
 
-**Built with 🧠 by [@jellyforex](https://github.com/jellyforex)**
+**Built with 🧠 by the [AskElira Team](https://github.com/AskElira)**

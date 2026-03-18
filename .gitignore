@@ -7,3 +7,14 @@ data/loop.log
 data/seeds/*.txt
 data/active_positions.json
 MiroFish/
+
+# Private keys (NEVER commit)
+*.pem
+*.key
+*_private_key*
+*.p12
+*.pfx
+
+# Credentials
+*credentials*
+*secret*
